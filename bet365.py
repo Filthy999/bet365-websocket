@@ -133,8 +133,8 @@ async def get_second_part_token():
     # resp = f.read()
     # f.close()
 
-    evaluator_code = resp.split("<script id='bootjs'>")[1].split("</script>")[0]
-    evaluator_code = evaluator_code.replace("new f();", "new f();document.puto_token = q.split('.')[1];")
+    evaluator_code = resp.split("(function(){var a=['location'")[1].split("</script>")[0]
+    evaluator_code = "(function(){var a=['location'" + evaluator_code.replace("new f();", "new f();document.puto_token = q.split('.')[1];")
 
     filename = PATH + "evaluator_code.js"
     f = open(filename, "w")
@@ -150,8 +150,8 @@ async def get_second_part_token():
                 const data = fs.readFileSync('/home/dume/evaluator_code.js', 'utf8'); \
                 try { \
                   const { JSDOM } = jsdom; \
-                  const doom = new JSDOM('<!DOCTYPE html><p>Bet365</p><script id=\"bootjs\">' + data + '</script></html>', \
-                    { pretendToBeVisual: true, runScripts: 'dangerously', url: 'https://www.bet365.es', resources: 'usable' }); \
+                  const doom = new JSDOM('<!DOCTYPE html><p>Bet365</p><script>' + data + '</script></html>', \
+                    { pretendToBeVisual: true, runScripts: 'dangerously', url: 'https://localhost', resources: 'usable' }); \
                   console.log(doom.window.document.puto_token); \
                 } catch (err) { \
                   console.error(err) \
